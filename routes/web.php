@@ -32,14 +32,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 
 
 
-Route::middleware(['auth'])->prefix('ventas')->group(function () {
-    Route::get('/', [Sale::class, 'render'])->name('ventas.index');
-    Route::get('create', [AddSale::class, 'render'])->name('ventas.create');//cargar formulario para agregar nueva venta
-    Route::post('store', [AddSale::class, 'store'])->name('ventas.store');
-    Route::get('edit/{id}', [Sale::class, 'edit'])->name('ventas.edit');
-    Route::post('update/{id}', [Sale::class, 'update'])->name('ventas.update');
-    Route::get('delete/{id}', [Sale::class, 'delete'])->name('ventas.delete');
-});
+// Route::middleware(['auth'])->prefix('ventas')->group(function () {
+//     // Route::get('/', [Sale::class, 'render'])->name('ventas.index');
+//     Route::get('create', [AddSale::class, 'render'])->name('ventas.create');//cargar formulario para agregar nueva venta
+//     Route::post('store', [AddSale::class, 'store'])->name('ventas.store');
+//     Route::get('edit/{id}', [Sale::class, 'edit'])->name('ventas.edit');
+//     Route::post('update/{id}', [Sale::class, 'update'])->name('ventas.update');
+//     Route::get('delete/{id}', [Sale::class, 'delete'])->name('ventas.delete');
+// });
 
 
 Route::middleware(['auth'])->prefix('clientes')->group(function () {

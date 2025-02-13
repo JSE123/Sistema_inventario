@@ -85,7 +85,7 @@ class AddSale extends Component
 
     // agrego producto al carrito
     public function agregarProducto(){
-        if($this->productSeleccionado){
+        if($this->productSeleccionado && $this->cantidad > 0){
              //verificar si el producto tiene stock suficiente
              $product = Product::find($this->productSeleccionado->id);
              if($product->stock < $this->cantidad){
@@ -102,6 +102,8 @@ class AddSale extends Component
             $this->productSeleccionado = null;
             $this->productoBusqueda = '';
             $this->cantidad = 0;
+        }else{
+            session()->flash('error', 'Debes seleccionar un producto y la cantidad');
         }
     }
 

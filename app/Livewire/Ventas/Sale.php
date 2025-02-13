@@ -7,19 +7,31 @@ use Livewire\Component;
 
 class Sale extends Component
 {
-
     public $currentComponent = 'sales';
+    public $selectedSaleId;
 
-
-    //funcion para cambiar el componente actual
-    public function changeComponent($component)
+    
+    public $sales;
+    
+    public function changeComponent($component, $id = null)
     {
+        if($id){
+            $this->setSaleId($id);
+        }   
         $this->currentComponent = $component;
+    }
+
+    public function setSaleId($id){
+        $this->selectedSaleId = $id;
+    }
+
+    public function mount()
+    {
+        $this->sales = ModelsSale::with('saleDetails')->get();
     }
 
     public function render()
     {
-        $sales = ModelsSale::with('sale_details');
-        return view('livewire.ventas.sales', ['sales' => $sales]);
+        return view('livewire.ventas.sales');
     }
 }

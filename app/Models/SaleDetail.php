@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SaleDetail extends Model
 {
+
+    protected $table = 'sale_details';
     protected $fillable = [
         'quantity',
         'unit_price',
@@ -16,7 +18,7 @@ class SaleDetail extends Model
     
     // un detalle de venta pertenece a una venta
     public function sale(){
-        return $this->belongsTo(Sale::class);
+        return $this->belongsTo(Sale::class, 'sale_id', 'id');
     }
     
     // un detalle de venta tiene productos a una venta
