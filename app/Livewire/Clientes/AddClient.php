@@ -3,6 +3,7 @@
 namespace App\Livewire\Clientes;
 
 use App\Models\Client;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -23,11 +24,11 @@ class AddClient extends Component
         try {
             Client::create($request->all());
             DB::commit();
-            return redirect()->back();
+            return redirect()->route('clientes.index')->with('success', 'Cliente agregado correctamente.');
             // return redirect()->route('customers.index')->with('success', 'Cliente agregado correctamente.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Error al agregar el cliente.');
+            return redirect()->back()->with('error', 'Error al agregar el cliente.', $e);
         }
     }
 

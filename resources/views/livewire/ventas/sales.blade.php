@@ -20,7 +20,7 @@
     {{-- {{$sales}} --}}
 
     <!-- Lista de ventas -->
-    <div class="bg-white shadow-md rounded p-4">
+    <div wire:poll.keep-alive class="bg-white shadow-md rounded p-4">
         <h3 class="text-lg font-semibold mb-4">Historial de Ventas</h3>
         <table class="w-full border-collapse border border-gray-200">
             <thead>
@@ -33,24 +33,27 @@
                 </tr>
             </thead>
             <tbody>
-                @if($sales)
-                    @foreach($sales as $sale)
-                        <tr>
-                            <td class="border p-2">1</td>
-                            <td class="border p-2">{{$sale->client->name}}</td>
-                            <td class="border p-2"></td>
-                            <td class="border p-2">${{ number_format($sale->total, 2) }}</td>
-                            <td class="border p-2 text-center">
-                                <button class="bg-blue-500 text-white px-2 py-1 rounded" wire:click="changeComponent('sales_details', {{$sale->id}})" wire:click="setSaleId('{{$sale->id}}')">Ver</button>
-                                <button class="bg-red-500 text-white px-2 py-1 rounded">Eliminar</button>
-                            </td>
-                        </tr>
-                    @endforeach
-                @else
+                @forelse($sales as $sale)
+                    <tr>
+                        <td class="border p-2">{{$loop->iteration}}</td>
+                        <td class="border p-2">{{$sale->client->name}}</td>
+                        <td class="border p-2"></td>
+                        <td class="border p-2">${{ number_format($sale->total, 2) }}</td>
+                        <td class="border p-2 text-center">
+                            <button class="bg-blue-500 text-white px-2 py-1 rounded" wire:click="changeComponent('sales_details', {{$sale->id}})" wire:click="setSaleId('{{$sale->id}}')">Ver detalles</button>
+                            {{-- <button class="bg-red-500 text-white px-2 py-1 rounded" wire:click="deleteSale('sales_details', {{$sale->id}})" wire:click="setSaleId('{{$sale->id}}')">Eliminar</button> --}}
+                        </td>
+                    </tr>
+                @empty
                     <td class="border p-2 text-center" colspan="5">No hay ventas registradas</td>
-                @endif    
+                @endforelse    
             </tbody>
         </table>
+        <!-- Controles de paginación -->
+        <div class="mt-4">
+            {{ $sales->links() }}
+        </div>
+
     </div>
     @elseif($currentComponent == 'add-sales')
         @livewire('ventas.add-sale')

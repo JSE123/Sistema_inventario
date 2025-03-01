@@ -11,7 +11,7 @@ class DetalleVenta extends Component
 
     public function mount($saleId)
     {
-        $this->sale = Sale::with(['client', 'saleDetails'])->findOrFail($saleId);
+        $this->sale = Sale::with(['client', 'saleDetails.product'])->findOrFail($saleId);
     }
 
 

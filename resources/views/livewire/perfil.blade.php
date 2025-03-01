@@ -1,8 +1,8 @@
-{{-- @extends('layouts.app')
+@extends('app')
 
 @section('title', 'Inicio')
 
-@section('content') --}}
+@section('content')
 @if(session('success'))
     <div id="success-message" class="bg-green-500 text-white mx-2 p-4 rounded-lg mb-4">
         {{ session('success') }}
@@ -97,4 +97,4 @@
         </div>
     </div>
 </div>
-{{-- @endsection --}}
+@endsection

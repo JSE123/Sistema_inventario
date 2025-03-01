@@ -12,6 +12,17 @@ use function Laravel\Prompts\alert;
 
 class AuthController extends Controller
 {
+
+    public function showLoginForm()
+    {
+        // Verificar si el usuario ya está autenticado
+        if (Auth::check()) {
+            return redirect()->route('home'); // Redirigir a la página principal si ya está autenticado
+        }
+
+        // Si no está autenticado, mostrar el formulario de inicio de sesión
+        return view('auth.login');
+    }
     
     public function register(Request $request)
     {

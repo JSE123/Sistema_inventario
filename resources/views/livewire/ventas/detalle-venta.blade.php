@@ -23,10 +23,11 @@
             </thead>
             <tbody>
                 @foreach ($sale->saleDetails as $detail)
+                {{-- {{$detail}} --}}
                 <tr class="border-b hover:bg-gray-100">
                     <td class="p-3">{{ $detail->product->name }}</td>
                     <td class="p-3 text-center">{{ $detail->quantity }}</td>
-                    <td class="p-3 text-center">${{ number_format($detail->unit_price, 2) }}</td>
+                    <td class="p-3 text-center">${{ number_format($detail->product->price, 2) }}</td>
                     <td class="p-3 text-center">${{ number_format($detail->sub_total, 2) }}</td>
                 </tr>
                 @endforeach

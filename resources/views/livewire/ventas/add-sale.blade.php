@@ -95,7 +95,7 @@
                 </tr>
             </thead>
             <tbody>
-                @if(    empty($carrito))
+                @if(empty($carrito))
                     <tr>
                         <td class="p-3 text-center" colspan="5">No hay productos agregados</td>
                     </tr>

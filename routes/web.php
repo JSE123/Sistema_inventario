@@ -4,9 +4,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SalesController;
 use App\Livewire\Clientes\AddClient;
+use App\Livewire\Clientes\Clientes;
+use App\Livewire\Clientes\Edit;
 use App\Livewire\Home;
 use App\Livewire\Perfil;
 use App\Livewire\productos\GestionProductos;
+use App\Livewire\Provedor\AddProveedor;
+use App\Livewire\Provedor\EditProveedor;
+use App\Livewire\Provedor\Proveedor;
 use App\Livewire\TestComponent;
 use App\Livewire\Ventas\AddSale;
 use App\Livewire\Ventas\Index;
@@ -15,45 +20,39 @@ use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
-// Route::get('/', [Home::class, 'render'])->middleware('auth')->name('home');
 Route::get('/',function(){
     return view('livewire.home');
 })->middleware('auth')->name('home');
+Route::get('/perfil', [Perfil::class, 'render'])->name('profile')->middleware('auth');
 
-Route::get('/perfil', [Perfil::class, 'render'])->name('profile');
-
-Route::get('/login', function(){
-    return view('auth.login');
-})->name('login');
+Route::middleware(['guest'])->group(function () {
+    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AuthController::class, 'login']);
+});
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 
-
-// Route::middleware(['auth'])->prefix('ventas')->group(function () {
-//     // Route::get('/', [Sale::class, 'render'])->name('ventas.index');
-//     Route::get('create', [AddSale::class, 'render'])->name('ventas.create');//cargar formulario para agregar nueva venta
-//     Route::post('store', [AddSale::class, 'store'])->name('ventas.store');
-//     Route::get('edit/{id}', [Sale::class, 'edit'])->name('ventas.edit');
-//     Route::post('update/{id}', [Sale::class, 'update'])->name('ventas.update');
-//     Route::get('delete/{id}', [Sale::class, 'delete'])->name('ventas.delete');
-// });
-
-
-Route::middleware(['auth'])->prefix('clientes')->group(function () {
-    Route::get('/', [AddClient::class, 'render'])->name('clientes.index');
+Route::prefix('clientes')->middleware(['auth'])->group(function () {
+    Route::get('/', function(){
+        return view('livewire.clientes.index');
+    })->name('clientes.index');
+    Route::get('/agregar', [AddClient::class, 'render'])->name('clientes.add');
     Route::get('create', [AddClient::class, 'render'])->name('clientes.create');
     Route::post('store', [AddClient::class, 'store'])->name('clientes.store');
-    Route::get('edit/{id}', [Sale::class, 'edit'])->name('clientes.edit');
-    Route::post('update/{id}', [Sale::class, 'update'])->name('clientes.update');
-    Route::get('delete/{id}', [Sale::class, 'delete'])->name('clientes.delete');
+    Route::get('/edit/{cliente}', [Clientes::class, 'edit'])->name('clientes.edit');
+    Route::put('/{cliente}', [Edit::class, 'update'])->name('clientes.update');
+    Route::delete('/{cliente}', [Clientes::class, 'destroy'])->name('clientes.delete');
 });
 
 Route::prefix('productos')->middleware(['auth'])->group(function () {
     //carga la vista principal de gestion producto donde se muestra un listado de productos
-    Route::get('/', [GestionProductos::class, 'render'])->name('productos.index');
+    Route::get('/', function(){
+        return view('livewire.productos.index');
+    })->name('productos.index');
+    // Route::get('/', [GestionProductos::class, 'render'])->name('productos.index');
     
 
     Route::get('/agregar', [ProductController::class, 'create'])->name('products.create');
@@ -96,4 +95,13 @@ Route::prefix('ventas')->middleware(['auth'])->group(function () {
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
-Route::get('/test', [TestComponent::class, 'render'])->name('test');    
+Route::prefix('proveedores')->middleware(['auth'])->group(function () {
+    Route::get('/', function(){
+        return view('livewire.provedor.index');
+    })->name('proveedores.index');
+    Route::get('create', [AddProveedor::class, 'render'])->name('proveedores.create');
+    Route::post('store', [AddProveedor::class, 'store'])->name('proveedores.store');
+    Route::get('edit/{proveedor}', [Proveedor::class, 'edit'])->name('proveedores.edit');
+    Route::put('/{proveedor}', [EditProveedor::class, 'update'])->name('proveedores.update');
+    Route::delete('/{proveedor}', [Proveedor::class, 'destroy'])->name('proveedores.delete');
+});

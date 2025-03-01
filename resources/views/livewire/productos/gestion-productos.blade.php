@@ -1,6 +1,4 @@
-@extends('app')
 
-@section('content')
 <div class="pt-4">
         @if(session('success'))
             <div class="bg-green-500 text-white p-2 rounded-md mb-4 " id="success-message">
@@ -20,7 +18,7 @@
             
             <!-- Barra de búsqueda -->
             <div class="mb-4">
-                <input type="text" placeholder="Buscar producto..." class="w-full p-2 border border-gray-300 rounded">
+                <input type="text" wire:model="search" wire:keyup="cambiarValor()" placeholder="Buscar producto..." class="w-full p-2 border border-gray-300 rounded">
             </div>
             
             <!-- Tabla de Productos -->
@@ -37,9 +35,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @forelse ($products as $product)
                         <tr class="border-b hover:bg-gray-100">
-                            <td class="p-3">1</td>
+                            <td class="p-3">{{$loop->iteration}}</td>
                             <td class="p-3">{{$product->name}}</td>
                             <td class="p-3">{{$product->category->category_name}}</td>
                             {{-- <td class="p-3">
@@ -69,11 +67,14 @@
                                 </button> --}}
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td class="p-3 text-center" colspan="6">No hay productos registrados</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
    
-</div>
-@endsection
+</div>  

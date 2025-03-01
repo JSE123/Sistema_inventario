@@ -4,14 +4,17 @@ namespace App\Livewire\Ventas;
 
 use App\Models\Sale as ModelsSale;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Sale extends Component
 {
+
+    use WithPagination;
     public $currentComponent = 'sales';
     public $selectedSaleId;
-
+    protected $paginationTheme = 'tailwind';
     
-    public $sales;
+    public $count = 0;
     
     public function changeComponent($component, $id = null)
     {
@@ -27,11 +30,12 @@ class Sale extends Component
 
     public function mount()
     {
-        $this->sales = ModelsSale::with('saleDetails')->get();
+        // $this->sales = ModelsSale::with('saleDetails')->paginate(10);
     }
 
     public function render()
     {
-        return view('livewire.ventas.sales');
+        $sales = ModelsSale::with('saleDetails')->paginate(10);
+        return view('livewire.ventas.sales' , compact('sales'));
     }
 }

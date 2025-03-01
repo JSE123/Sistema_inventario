@@ -27,10 +27,22 @@
             </a>
         </li>
         <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
-            <a href="{{ route('clientes.index') }}" class="flex items-center space-x-4 w-full">
-                <i class="fas fa-chart-bar text-xl"></i>
+            <a href="{{route('clientes.index')}}" class="flex items-center space-x-4 w-full">
+                <i class="fa-solid fa-users"></i>
                 <span x-show="open" class="transition-opacity duration-300 opacity-100">Clientes</span>
             </a>
+        </li>
+        <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
+            {{-- <i class="fas fa-cog text-xl"></i> --}}
+            
+            <a href="{{route('proveedores.index')}}" class="flex items-center space-x-4 w-full">
+                <i class="fa-solid fa-truck"></i>
+                <span x-show="open" class="transition-opacity duration-300 opacity-100">Proveedores</span>
+            </a>
+        </li>
+        <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
+            <i class="fa-solid fa-store"></i>
+            <span x-show="open" class="transition-opacity duration-300 opacity-100">Compras</span>
         </li>
         <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
             <i class="fas fa-cog text-xl"></i>
