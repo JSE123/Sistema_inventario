@@ -92,6 +92,6 @@ class ProductController extends Controller
         $product->delete(); // Eliminar el producto
         
 
-        return redirect()->route('gestionProductos')->with('success', 'Producto eliminado correctamente.');
+        return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente.');
     }
 }

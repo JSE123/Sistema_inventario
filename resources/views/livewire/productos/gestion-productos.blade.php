@@ -6,7 +6,11 @@
             </div>
         @endif
         
-        
+        @if($lowStockProducts->count())
+            <div class="bg-yellow-500 text-white p-2 rouded mx-3">
+                Hay algunos productos que están por agotarse:
+            </div>
+        @endif
         <div class="max-w-7xl mx-auto bg-white shadow-md rounded-lg p-6">
             <!-- Encabezado -->
             <div class="flex justify-between items-center mb-6">
@@ -51,7 +55,7 @@
                             <td class="p-3">${{$product->price}}</td>
                             <td class="p-3 flex justify-center space-x-2">
                                 <button class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">
-                                    <a href="{{ route('products.edit', $product->id) }}">
+                                    <a href="{{ route('products.edit', $product) }}">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 </button>

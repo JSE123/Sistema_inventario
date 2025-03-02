@@ -8,6 +8,7 @@ use App\Livewire\Clientes\Clientes;
 use App\Livewire\Clientes\Edit;
 use App\Livewire\Home;
 use App\Livewire\Perfil;
+use App\Livewire\Productos\EditProducto;
 use App\Livewire\productos\GestionProductos;
 use App\Livewire\Provedor\AddProveedor;
 use App\Livewire\Provedor\EditProveedor;
@@ -63,12 +64,12 @@ Route::prefix('productos')->middleware(['auth'])->group(function () {
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     
     //mostrar vista para editr productos
-    Route::get('/products/{id}', [ProductController::class, 'edit'])->name('products.edit');
+    Route::get('/{product}', [GestionProductos::class, 'edit'])->name('products.edit');
     
 
 
     //guardar los cambios
-    Route::put('/{product}', [ProductController::class, 'update'])->name('products.update');
+    Route::put('/{product}', [EditProducto::class, 'update'])->name('product.update');
     
     //ruta para eliminar producto
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');

@@ -51,7 +51,7 @@
                                 <a href="{{ route('proveedores.edit', $proveedor) }}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600">Editar</a>
                                 
                             </button>
-                            <form action="{{ route('proveedores.delete', $Ñproveedor) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este proveedor?');">
+                            <form action="{{ route('proveedores.delete', $proveedor) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este proveedor?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="bg-red-500 text-white mt-4 px-3 py-1 rounded hover:bg-red-600">Eliminar</button>

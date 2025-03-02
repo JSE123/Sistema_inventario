@@ -36,6 +36,11 @@ class GestionProductos extends Component
         $this->currentComponent = $component;
     }
 
+    public function edit(Product $product)
+    {
+        return view('livewire.productos.edit-producto', compact('product'));
+    }
+
 
     
 
@@ -44,10 +49,13 @@ class GestionProductos extends Component
         // $products = Product::when($this->search, function ($query) {
         //     $query->where('name', 'like', '%' . $this->search . '%');
         // })->paginate(7);
+
+        $lowStockProducts = Product::where('stock', '<=', 5)->get();
+
         $products = Product::where('name', 'ILIKE', '%' . $this->search . '%')
         ->orWhere('description', 'ILIKE', '%' . $this->search . '%')
         ->orderBy('name', 'asc')    
         ->paginate(7);
-        return view('livewire.productos.gestion-productos', compact('products'));
+        return view('livewire.productos.gestion-productos', compact('products', 'lowStockProducts'));
     }
 }
