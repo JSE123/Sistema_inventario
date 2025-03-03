@@ -6,6 +6,7 @@ use App\Http\Controllers\SalesController;
 use App\Livewire\Clientes\AddClient;
 use App\Livewire\Clientes\Clientes;
 use App\Livewire\Clientes\Edit;
+use App\Livewire\Compras\CreateQuotation;
 use App\Livewire\Home;
 use App\Livewire\Perfil;
 use App\Livewire\Productos\EditProducto;
@@ -105,4 +106,12 @@ Route::prefix('proveedores')->middleware(['auth'])->group(function () {
     Route::get('edit/{proveedor}', [Proveedor::class, 'edit'])->name('proveedores.edit');
     Route::put('/{proveedor}', [EditProveedor::class, 'update'])->name('proveedores.update');
     Route::delete('/{proveedor}', [Proveedor::class, 'destroy'])->name('proveedores.delete');
+});
+
+Route::prefix("compras")->middleware(['auth'])->group(function(){
+    Route::get('/', function(){
+        return view('livewire.compras.index');
+    })->name('compras.index');
+
+    Route::get('/crear', [CreateQuotation::class, 'render'])->name('compras.create');
 });

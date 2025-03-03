@@ -41,8 +41,10 @@
             </a>
         </li>
         <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
-            <i class="fa-solid fa-store"></i>
-            <span x-show="open" class="transition-opacity duration-300 opacity-100">Compras</span>
+            <a href="{{route('compras.index')}}" class="flex items-center space-x-4 w-full">
+                <i class="fa-solid fa-store"></i>
+                <span x-show="open" class="transition-opacity duration-300 opacity-100">Compras</span>
+            </a>
         </li>
         <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
             <i class="fas fa-cog text-xl"></i>
