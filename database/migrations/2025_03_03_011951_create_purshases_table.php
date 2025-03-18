@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('purshases', function (Blueprint $table) {
             $table->id();
             $table->foreignId("supplier_id")->constrained("proveedors")->onDelete("cascade");
-            $table->foreignId("quotation_id")->constrained("quotations")->onDelete("cascade");
-            $table->enum("status", ["pending", "completed"])->default("pending");
+            // $table->foreignId("quotation_id")->constrained("quotations")->onDelete("cascade");
+            // $table->enum("status", ["pending", "completed"])->default("pending");
             $table->decimal("total", 10,2);
             $table->timestamps();
         });

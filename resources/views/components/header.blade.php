@@ -1,4 +1,4 @@
-<header class="flex justify-between items-center p-4 bg-gray-800 shadow">
+<header class="flex justify-between items-center p-4 bg-gray-800 shadow ">
     <h1 class="text-lg font-bold text-white"><a href="/">Sistema de Inventario</a></h1>
     <!-- Dropdown de usuario -->
     <div x-data="{ open: false }" class="relative">

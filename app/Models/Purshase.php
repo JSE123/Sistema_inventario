@@ -8,8 +8,6 @@ class Purshase extends Model
 {
     protected $fillable = [
         "supplier_id",
-        "quotation_id",
-        "status",
         "total"
     ];
     public function supplier()
@@ -18,6 +16,6 @@ class Purshase extends Model
     }
     public function details()
     {
-        return $this->hasMany(Purshase_detail::class);
+        return $this->hasMany(PurshaseDetail::class);
     }
 }

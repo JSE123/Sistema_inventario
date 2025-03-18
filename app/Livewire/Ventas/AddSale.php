@@ -55,7 +55,7 @@ class AddSale extends Component
     }
 
     public function seleccionarCliente($clienteId)
-    {
+    {   
         $cliente = Client::find($clienteId);
         if ($cliente) {
             $this->clienteSeleccionado = $cliente;

@@ -12,9 +12,38 @@
 
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold">Ventas</h2>
-        <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" wire:click="changeComponent('add-sales')">
-                <i class="fas fa-plus"></i>Nueva Venta
-        </button>
+        <div class="flex">
+
+            <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" wire:click="changeComponent('add-sales')">
+                <i class="fas fa-plus"></i>Nueva venta
+            </button>
+
+            <!-- Dropdown de usuario -->
+            <div x-data="{ open: false }" class="relative">
+                <!-- Botón Avatar -->
+                <button @click="open = !open" class="bg-blue-500 rounded ml-3 px-4 py-2 flex items-center space-x-2 text-black focus:outline-none">
+                    {{-- <img src="https://ui-avatars.com/api/?name=Usuario" class="w-8 h-8 rounded-full"> --}}
+                    <span class="hidden md:inline">Generar informes</span>
+                    
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <!-- Contenido del Dropdown -->
+                <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                    
+                    <a href="{{ route('sales.report.pdf')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                        Generar informe pdf
+                    </a>
+                    <a href="{{ route('reportes.ventas.excel')}}" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">
+                        Generar informe excel
+                    </a>
+                    
+                </div>
+            </div>
+
+            {{-- <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                <a href="{{route('sales.report.pdf')}}" ><i class="fas fa-plus"></i>Generar informe</a>
+            </button> --}}
+        </div>
     </div>
 
     {{-- {{$sales}} --}}
@@ -37,7 +66,7 @@
                     <tr>
                         <td class="border p-2">{{$loop->iteration}}</td>
                         <td class="border p-2">{{$sale->client->name}}</td>
-                        <td class="border p-2"></td>
+                        <td class="border p-2">{{$sale->created_at->format('Y-m-d')}}</td>
                         <td class="border p-2">${{ number_format($sale->total, 2) }}</td>
                         <td class="border p-2 text-center">
                             <button class="bg-blue-500 text-white px-2 py-1 rounded" wire:click="changeComponent('sales_details', {{$sale->id}})" wire:click="setSaleId('{{$sale->id}}')">Ver detalles</button>
@@ -58,7 +87,6 @@
     @elseif($currentComponent == 'add-sales')
         @livewire('ventas.add-sale')
     @elseif($currentComponent == 'sales_details')
-        {{-- @livewire('ventas.detalle-venta', ['saleId' => $saleId]) --}}
         <livewire:ventas.detalle-venta :saleId="$selectedSaleId" />
     @endif
 

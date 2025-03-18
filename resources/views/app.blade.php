@@ -19,9 +19,9 @@
     <!-- Encabezado -->
     @include('components.header')
 
-    <div class="flex">
+    <div class="flex h-screen">
         @include('components.sidebar')
-        <div class="flex-grow">
+        <div class="flex-grow overflow-y-auto">
             @yield('content')
         </div>
         {{-- @livewire('home') --}}

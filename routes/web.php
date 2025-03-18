@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SalesController;
 use App\Livewire\Clientes\AddClient;
 use App\Livewire\Clientes\Clientes;
 use App\Livewire\Clientes\Edit;
+use App\Livewire\Compras\CreatePurshase;
 use App\Livewire\Compras\CreateQuotation;
 use App\Livewire\Home;
 use App\Livewire\Perfil;
@@ -22,9 +24,7 @@ use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
-Route::get('/',function(){
-    return view('livewire.home');
-})->middleware('auth')->name('home');
+Route::get('/',[Home::class, "render"])->middleware('auth')->name('home');
 Route::get('/perfil', [Perfil::class, 'render'])->name('profile')->middleware('auth');
 
 Route::middleware(['guest'])->group(function () {
@@ -79,10 +79,6 @@ Route::prefix('productos')->middleware(['auth'])->group(function () {
 
 Route::prefix('ventas')->middleware(['auth'])->group(function () {
     //carga la vista principal de gestion de ventas donde se muestra un listado de ventas
-    // Route::get('/', [SalesController::class, 'index'])->name('ventas.index');
-    // Route::get('/ventas', function () {
-    //     return Livewire::mount('ventas.sale');
-    // })->name('ventas.index');
     Route::get('/', function () {
         return view('livewire.ventas.index');
     })->name('ventas.index');
@@ -95,6 +91,15 @@ Route::prefix('ventas')->middleware(['auth'])->group(function () {
     
     //ruta para eliminar producto
     Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+    //generar informe de ventas
+    // Route::get('/informe', [ReportController::class, 'ventasInforme'])->name('ventas.report');
+    // Route::get('/informe/reporteVenta', [ReportController::class, 'ventasInforme'])->name('ventas.report');
+    Route::get('/reportes/ventas/pdf', [ReportController::class, 'ventasPDF'])->name('sales.report.pdf');
+
+    Route::get('/reportes/ventas/excel', [ReportController::class, 'ventasExcel'])->name('reportes.ventas.excel');
+
+
 });
 
 Route::prefix('proveedores')->middleware(['auth'])->group(function () {
@@ -114,4 +119,6 @@ Route::prefix("compras")->middleware(['auth'])->group(function(){
     })->name('compras.index');
 
     Route::get('/crear', [CreateQuotation::class, 'render'])->name('compras.create');
+    Route::get('/crear', [CreatePurshase::class, 'render'])->name('compras.add');
+    Route::post('/store', [CreatePurshase::class, 'store'])->name('compras.store');
 });

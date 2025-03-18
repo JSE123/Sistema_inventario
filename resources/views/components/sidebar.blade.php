@@ -1,4 +1,5 @@
-<div class="text-white">
+{{-- <div class="text-white fixed h-screen overflow-y-auto"> --}}
+<div class="text-white ">
 
     <!-- Sidebar con Alpine.js -->
     <div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false"
@@ -7,8 +8,11 @@
     
     <ul class=" space-y-2">
         <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
-            <i class="fas fa-home text-xl"></i>
-            <span x-show="open" class="transition-opacity duration-300 opacity-100">Inicio</span>
+            <a href="/" class="flex items-center space-x-4 w-full">
+                <i class="fas fa-home text-xl"></i>
+                <span x-show="open" class="transition-opacity duration-300 opacity-100">Inicio</span>
+            </a>
+
         </li>
         <li class="flex items-center space-x-4 p-3 hover:bg-gray-700 cursor-pointer">
             <a href="{{ route('productos.index') }}" class="flex items-center space-x-4 w-full">
